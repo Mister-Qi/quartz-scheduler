@@ -1,0 +1,32 @@
+#system configuration
+spring:
+    main:
+        banner-mode: off
+    pid:
+        file: ./runtime/quartz-scheduler-shutdown.pid
+        fail-on-write-error: true
+    quartz:
+        auto-startup: true
+        job-store-type: memory
+        wait-for-jobs-to-complete-on-shutdown: false
+logging:
+    level:
+        root: warn
+        sg.ncs.quartz.scheduler: info
+    file:
+        name: ./log/quartz-task.log
+# define the cron expression task
+# the cron format [second minute hour day month week]
+test-task:
+    scheduledTasks[0]:
+        taskName: "showMoeHelp"
+        cronExpression: "0/10 0/1 10-18 * * ?"
+        command: "C:/Users/P1313521/Desktop/bin/moe-help.cmd"
+#        timeout: 20
+#        workDirectory: "D:/temp/"
+    scheduledTasks[1]:
+        taskName: "showDate"
+        cronExpression: "0/10 0/1 10-18 * * ?"
+        command: "D:/program/apache-maven-3.6.1/bin/mvn.cmd > %time:~0,2%_%time:~3,2%_%time:~6,2%.txt"
+        timeout: 20
+        workDirectory: "D:/temp/log"
